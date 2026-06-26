@@ -1,3 +1,4 @@
+// Package integration contains load and performance tests for the learned_rules_disabled_by_default feature.
 package integration
 
 import (
