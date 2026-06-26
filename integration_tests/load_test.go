@@ -267,8 +267,11 @@ func TestLoad_IdempotentBulkOperations(t *testing.T) {
 	// Create test rules
 	ruleIDs := make([]int64, 100)
 	for i := 0; i < 100; i++ {
-		ruleID, _ := harness.qmmAPI.CreateLearningEvent(context.Background(),
+		ruleID, err := harness.qmmAPI.CreateLearningEvent(context.Background(),
 			harness.workspaceID, harness.agentID, map[string]interface{}{"type": "idempotent_test"})
+		if err != nil {
+			t.Fatalf("failed to create test rule: %v", err)
+		}
 		ruleIDs[i] = ruleID
 	}
 
