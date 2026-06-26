@@ -335,7 +335,7 @@ echo -e "\n2. Trigger learning event (manual - emoji reaction on staging PR)"
 read -p "Press enter after triggering learning event..."
 
 echo -e "\n3. Verify rule created disabled"
-mysql -h db.staging.internal -u bito -p -e \
+MYSQL_PWD="$DB_PASSWORD" mysql -h db.staging.internal -u bito -e \
   "SELECT id, is_enabled, is_disabled_by_user FROM cra_rule_metadata WHERE ws_id=$WS_ID ORDER BY id DESC LIMIT 1;"
 
 echo -e "\n4. Test bulk disable all"
