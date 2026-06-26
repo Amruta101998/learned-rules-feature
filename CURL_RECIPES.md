@@ -135,7 +135,7 @@ RULE_IDS=$(mysql -h db.preprod.internal -u bito -p -e \
   "SELECT GROUP_CONCAT(id) FROM cra_learned_rules WHERE ws_id=978573 AND rule_type='negative' LIMIT 100;" | tail -1)
 
 # Convert to JSON array
-RULE_ARRAY=$(echo $RULE_IDS | jq -R 'split(",") | map(tonumber)')
+RULE_ARRAY=$(printf '%s' "$RULE_IDS" | jq -R 'split(",") | map(tonumber)')
 
 # Use in bulk API call
 curl -X PATCH "${BASE_URL}/qmm/api/v1/learning-rules/bulk-status" \
